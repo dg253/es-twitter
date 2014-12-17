@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div(class="container")
+    h1= title
+
+    div(class="row")
+      div(class="col-xs-9 col-sm-6")
+        form(name="input" action="/response" method="post" role="form")
+          div(class="form-group")
+            label(for="query") Search Tweets:
+            input(type="text", name="query", id="query", class="form-control")
+
+          button(type="submit", value="Submit", class="btn btn-info") Search!
+
