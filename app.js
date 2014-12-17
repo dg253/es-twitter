@@ -1,7 +1,8 @@
 var express = require('express'),
   config = require('./config/config'),
-  elasticsearch = require('elasticsearch'),
-  CronJob = require('cron').CronJob;
+CronJob = require('cron').CronJob,
+  elasticsearch = require('elasticsearch');
+  
 
 var client = new elasticsearch.Client({
                     host: 'localhost:9200',
@@ -10,10 +11,10 @@ var client = new elasticsearch.Client({
                     trace: true
                   });
 
-var twitterKey = 'fRdztvL0ZYPmAfQu04ELPH60l',
-    twitterSecret = 'BI1FGLBbSPQTnVyIMMdSCiQ7yEoPKEh3ccuLCerJEt5jQQV4AD',
-    token = '313617947-wjVWNEaULaMsByX8YAii49POLBUYAwr307MuqZ72',
-    secret = 'HK1STLOoTd6829mDPORb2WXSTJAATzThON52RVRMVBfXg';
+var twitterKey = 'gaKSlWuIjSXY6WQ8L0MHAAEWR',
+    twitterSecret = 'NFf37GCnQg2Vt44piBp7rqLCXH5mKEDtV3kVudeXvFqPw9C0xk',
+    token = '1526076258-0vZPFBxJti2sqx52aUoeqJJ71YDieyVZXIfq9l9',
+    secret = 'xYF2zboeiTQhs3URTOwp2JliozejV4pX0A8dxXlFQd5di';
 
 var OAuth = require('OAuth');
 var oauth = new OAuth.OAuth(
@@ -25,7 +26,7 @@ var oauth = new OAuth.OAuth(
   null,
   'HMAC-SHA1'
 );
-new CronJob('15 * * * * *', function(){
+new CronJob('5 * * * * *', function(){
     console.log('cron job is running...');
     oauth.get('https://api.twitter.com/1.1/statuses/home_timeline.json',
       token,
@@ -47,7 +48,7 @@ new CronJob('15 * * * * *', function(){
               if(error) {
                 console.log(error);
               } else {
-                console.log("index created!");
+                console.log("created index");
               }
             });
           }
@@ -60,6 +61,3 @@ var app = express();
 require('./config/express')(app, config);
 
 app.listen(config.port);
-
-
-
